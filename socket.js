@@ -38,6 +38,21 @@ module.exports.initIO = (httpServer) => {
 
         })
 
+        // TODO
+        socket.on('hangupCall', (data) => {
+
+            console.log('hangupCall', data);
+
+            let caller = data.caller;
+            rtcMessage = data.rtcMessage
+
+            socket.to(caller).emit("hangupCall", {
+                callee: socket.user,
+                rtcMessage: rtcMessage
+            })
+
+        })
+
         socket.on('ICEcandidate', (data) => {
             let otherUser = data.user;
             let rtcMessage = data.rtcMessage;
