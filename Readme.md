@@ -7,3 +7,10 @@ A Introduction to WebRTC and Guide on creating a Video Call Application with Web
 Guide on [WebRTC - Video Call with SocketIO Nodejs]
 
 [webrtc - video call with socketio nodejs]: https://www.bloggernepal.com/2021/05/webrtc-video-call-with-socketio-nodejs.html
+
+[Setup STUN and TURN server on Ubuntu]: https://www.bloggernepal.com/2021/05/setup-stun-and-turn-server-on-ubuntu.html
+
+
+```bash
+node index.js
+```
