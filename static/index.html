@@ -31,9 +31,12 @@
             <!-- to input username and login -->
             <div id="userName">
                 <div style="display: flex; flex-direction: column; align-items: center; width: 300px;">
-                    <input placeholder="What should we call you?"
+                    <label >Quel est votre nom
+                        <input
                         style="text-align:center; height: 50px; font-size: xx-large;" type="text" name=""
                         id="userNameInput">
+                    </label>
+                    
                     <div style="height: 5px;"></div>
                     <button onclick="login()" class="actionButton">Login</button>
                 </div>
@@ -42,7 +45,7 @@
             <!-- to display current login user information  -->
             <div id="userInfo">
                 <div style="display: flex; flex-direction: column; align-items: center; width: 300px;">
-                    <h1>Hello, <span id="nameHere"></span></h1>
+                    <h1>Bonjour, <span id="nameHere"></span></h1>
                 </div>
 
             </div>
@@ -50,13 +53,15 @@
             <!-- to make a call with name -->
             <div id="call">
                 <div class="dialWrapper">
-                    <input placeholder="Whom to call?" style="text-align:center; height: 50px; font-size: xx-large;"
+                    <label >Qui voullez vous appeler
+                    <input  style="text-align:center; height: 50px; font-size: xx-large;"
                         type="text" name="callName" id="callName">
+                    </label>
                     <div class="dialNumpadHWrapper">
                         <div class="dialNumber">
                         </div>
                         <div class="dialNumber">
-                            <button class="dialActionButton" onclick="call()">Call</button>
+                            <button class="dialActionButton" onclick="call()">Appeler</button>
                         </div>
                         <div class="dialNumber">
                         </div>
@@ -69,7 +74,7 @@
             <div id="answer">
                 <div class="incomingWrapper">
                     <div class="itemWrapper">
-                        <h2>Incomming Call</h2>
+                        <h2>Appel entrant</h2>
                     </div>
                     <div class="itemWrapper">
                         <img id="profileImageA" style="padding: 30px; width: 140px; height: 140px;"
@@ -79,7 +84,7 @@
                         <h2 style="line-height: 0px;"><span id="callerName"></span></h2>
                     </div>
                     <div class="itemWrapper" style="display: flex; flex-direction: row; margin-bottom: 20px;">
-                        <button class="actionButton" onclick="answer()">Answer</button>
+                        <button class="actionButton" onclick="answer()">Repondre</button>
                     </div>
                 </div>
             </div>
@@ -88,7 +93,7 @@
             <div id="calling">
                 <div class="incomingWrapper">
                     <div class="itemWrapper">
-                        <h2>Calling</h2>
+                        <h2>Appel sortant en cours ...</h2>
                     </div>
                     <div class="itemWrapper">
                         <img id="profileImageCA" style="padding: 30px; width: 140px; height: 140px;"
@@ -97,6 +102,7 @@
                     <div class="itemWrapper">
                         <h3 style="line-height: 0px;"><span id="otherUserNameCA"></span></h3>
                     </div>
+                    <button onclick="cancel_call()" class="actionButton">(cancel call)</button>
                 </div>
             </div>
 
@@ -104,9 +110,10 @@
             <div id="inCall">
                 <div class="incomingWrapper">
                     <div class="itemWrapper">
-                        <h3>On Call With</h3>
+                        <h3>Appen en cours avec</h3>
                         <h2 style="line-height: 0px;"><span id="otherUserNameC"></span></h2>
                     </div>
+                    <button onclick="hangup_call()" id="hangup_call" class="actionButton">(hangup call)</button>
                 </div>
             </div>
 
@@ -125,21 +132,10 @@
             </div>
         </div>
 
-
-
-
-
     </div>
+
     <div style="flex-grow: 1;">
     </div>
-    <div>
-        <div style="display: flex; flex-direction: column;">
-            <a href="https://www.bloggernepal.com/2021/05/setup-stun-and-turn-server-on-ubuntu.html">
-                Setup STUN and TURN server on Ubuntu
-            </a>
-        </div>
-    </div>
-
 
     <script src="/assets/call.js"></script>
     <script>
