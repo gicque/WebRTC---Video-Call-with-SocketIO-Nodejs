@@ -17,7 +17,7 @@ let callInProgress = false;
 
 //event from html
 function call() {
-    let userToCall = document.getElementById("callName").value;
+    let userToCall = document.getElementById("callName").value.toLowerCase();
     otherUser = userToCall;
 
     beReady()
@@ -36,6 +36,24 @@ function answer() {
         })
 
     document.getElementById("answer").style.display = "none";
+}
+
+function cancel_call(){
+    console.log(myName, 'cancel_call')
+    socket.emit("hangupCall", {
+        caller: otherUser,
+        rtcMessage: ''
+    });
+    stop()
+}
+
+function hangup_call(){
+    console.log(myName, 'hangup_call')
+    socket.emit("hangupCall", {
+        caller: otherUser,
+        rtcMessage: ''
+    });
+    stop()
 }
 
 let pcConfig = {
@@ -91,6 +109,11 @@ function connectSocket() {
         // console.log(pc);
 
         callProgress()
+    })
+    
+    socket.on('hangupCall', data => {
+        console.log(myName, 'socket.on.hangup')
+        stop();        
     })
 
     socket.on('ICEcandidate', data => {
@@ -300,7 +323,8 @@ function stop() {
     document.getElementById("answer").style.display = "none";
     document.getElementById("inCall").style.display = "none";
     document.getElementById("calling").style.display = "none";
-    document.getElementById("endVideoButton").style.display = "none"
+    //document.getElementById("endVideoButton").style.display = "none"
+    document.getElementById("videos").style.display = "none";
     otherUser = null;
 }
 

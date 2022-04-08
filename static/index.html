@@ -153,7 +153,7 @@
     </script>
     <script>
         function login() {
-            let userName = document.getElementById("userNameInput").value;
+            let userName = document.getElementById("userNameInput").value.toLowerCase();
             myName = userName;
             document.getElementById("userName").style.display = "none";
             document.getElementById("call").style.display = "block";
