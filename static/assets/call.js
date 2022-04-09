@@ -15,7 +15,7 @@ let localStream;
 
 let callInProgress = false;
 
-//event from html
+// === event from html
 function call() {
     let userToCall = document.getElementById("callName").value.toLowerCase();
     otherUser = userToCall;
@@ -26,7 +26,6 @@ function call() {
         })
 }
 
-//event from html
 function answer() {
     //do the event firing
 
@@ -56,6 +55,8 @@ function hangup_call(){
     stop()
 }
 
+// ===
+
 let pcConfig = {
     "iceServers":
         [
@@ -74,7 +75,7 @@ let sdpConstraints = {
     offerToReceiveVideo: true
 };
 
-/////////////////////////////////////////////
+//===============================================================================
 
 let socket;
 function connectSocket() {
@@ -137,6 +138,33 @@ function connectSocket() {
 
     })
 
+    socket.on('user_list', data => {
+        console.log(data, 'socket.on.users')
+
+        let ul = document.createElement('ul');
+    
+        document.getElementById('user_list').innerHTML = '';
+        document.getElementById('user_list').appendChild(ul);
+        
+        data.forEach(function (item) {
+
+            if(item==myName) return;
+
+            let li = document.createElement('li');
+            ul.appendChild(li);
+        
+            li.innerHTML += item;
+        });
+
+        // const div_user_list = document.querySelector('#user_list')
+        // if(div_user_list){
+        //     div_user_list.innerHTML = li.outerHTML
+        // }
+        
+
+        //stop();        
+    })
+
 }
 
 /**
@@ -145,18 +173,24 @@ function connectSocket() {
  * @param {number} data.name - the name of the user to call
  * @param {Object} data.rtcMessage - the rtc create offer object
  */
-function sendCall(data) {
+async function sendCall(data) {
     //to send a call
     console.log("Send Call");
-    socket.emit("call", data);
+    socket.emit("call", data, function(x){
+        console.log('sendCall callback', x)
+        if(x && x.cancel){
+            document.getElementById("call").style.display = "block";
+            document.getElementById("calling").style.display = "none";
+            console.log('sendCall callback: utilisateur non trouvé')
+        }
+    });
+    //console.log('sendCall', r)
 
     document.getElementById("call").style.display = "none";
     // document.getElementById("profileImageCA").src = baseURL + otherUserProfile.image;
     document.getElementById("otherUserNameCA").innerHTML = otherUser;
     document.getElementById("calling").style.display = "block";
 }
-
-
 
 /**
  * 
@@ -178,7 +212,7 @@ function answerCall(data) {
  */
 function sendICEcandidate(data) {
     //send only if we have caller, else no need to
-    console.log("Send ICE candidate");
+    //console.log("Send ICE candidate");
     socket.emit("ICEcandidate", data)
 }
 
@@ -257,7 +291,7 @@ function processAccept() {
     })
 }
 
-/////////////////////////////////////////////////////////
+//===============================================================================
 
 function createPeerConnection() {
     try {
@@ -278,7 +312,7 @@ function createPeerConnection() {
 function handleIceCandidate(event) {
     // console.log('icecandidate event: ', event);
     if (event.candidate) {
-        console.log("Local ICE candidate");
+        //console.log("Local ICE candidate");
         // console.log(event.candidate.candidate);
 
         sendICEcandidate({
@@ -313,11 +347,15 @@ window.onbeforeunload = function () {
     }
 };
 
-
 function stop() {
-    localStream.getTracks().forEach(track => track.stop());
+    if(localStream){
+        localStream.getTracks().forEach(track => track.stop());
+    }
+    
     callInProgress = false;
-    peerConnection.close();
+    if(peerConnection){
+        peerConnection.close();
+    }        
     peerConnection = null;
     document.getElementById("call").style.display = "block";
     document.getElementById("answer").style.display = "none";
