@@ -1,8 +1,9 @@
 .dialWrapper {
-  width: 300px;
+  /* width: 300px; */
   background-color: antiquewhite;
   display: flex;
   flex-direction: column;
+  padding: 10px;
 }
 
 .dialNumpadHWrapper {
