@@ -36,6 +36,40 @@ function generate_username(){
     return name;
 }
 
+
+// document.addEventListener('DOMContentLoaded', function() {
+//     if (!Notification) {
+//      alert('Desktop notifications not available in your browser. Try Chromium.');
+//      return;
+//     }
+   
+//     if (Notification.permission !== 'granted')
+//      Notification.requestPermission();
+//    });
+   
+   
+function notifyMe() {
+    if (Notification.permission !== 'granted')
+     Notification.requestPermission();
+    else {
+     var notification = new Notification('Appel entrant', {
+      
+      body: 'Vous avez un appel entrant!',
+     });
+     notification.onclick = function() {
+      window.open('https://stackoverflow.com/a/13328397/1269037');
+     };
+    }
+   }
+
+var audio = new Audio('https://upload.wikimedia.org/wikipedia/commons/3/34/Sound_Effect_-_Door_Bell.ogg');
+
+function notify_incoming_call(){
+  audio.play();
+  //alert('We are redirecting your call to our Customer Service Representative.\nPlease wait.');
+  notifyMe
+}
+
 // === event from html
 function call() {
     let userToCall = document.getElementById("callName").value.toLowerCase();
@@ -85,6 +119,8 @@ function hangup_call(){
     stop()
 }
 
+   
+
 // ===
 
 let pcConfig = {
@@ -127,6 +163,9 @@ function connectSocket() {
         document.getElementById("callerName").innerHTML = otherUser;
         document.getElementById("call").style.display = "none";
         document.getElementById("answer").style.display = "block";
+
+        notify_incoming_call();
+
     })
 
     socket.on('callAnswered', data => {
