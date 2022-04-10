@@ -35,7 +35,8 @@
                     <label >Quel est votre nom
                         <input
                         style="text-align:center; height: 50px; font-size: xx-large;" type="text" name=""
-                        id="userNameInput">
+                        id="userNameInput"
+                        >
                     </label>
                     
                     <div style="height: 5px;"></div>
@@ -54,6 +55,11 @@
             <!-- to make a call with name -->
             <div id="call">
                 <div class="dialWrapper">
+
+                    <label >Qui voullez vous appeler
+                    <div id="user_list">Aucun autre membre connecté</div>
+                    <hr/>
+
                     <label >Qui voullez vous appeler
                     <input  style="text-align:center; height: 50px; font-size: xx-large;"
                         type="text" name="callName" id="callName">
@@ -138,9 +144,12 @@
     <div style="flex-grow: 1;">
     </div>
 
-    <div id="user_list"></div>
+    
 
     <script src="/assets/call.js"></script>
+    <script>
+        document.querySelector('#userNameInput').value= generate_username()
+    </script>
     <script>
         document.getElementById("call").style.display = "none";
         document.getElementById("userInfo").style.display = "none";

@@ -15,9 +15,39 @@ let localStream;
 
 let callInProgress = false;
 
+// === helper
+function createElementFromHTML(htmlString) {
+    var div = document.createElement('div');
+    div.innerHTML = htmlString.trim();
+  
+    // Change this to div.childNodes to support multiple top-level nodes.
+    return div.firstChild;
+}
+
+function generate_username(){
+    var adjectives = ["small", "blue" /*, "Ugly"*/, "alizarin","amaranth","amber","amethyst","apricot","aqua","aquamarine","asparagus","auburn","azure","beige","bistre","black","blue","brass","bronze","brown","buff","burgundy","cardinal","carmine","cerise","cerulean","champagne","charcoal","chartreuse","chestnut","chocolate","cinnabar","cinnamon","cobalt","copper","coral","corn","cornflower","cream","crimson","cyan","dandelion","denim","ecru","emerald","eggplant","firebrick","flax","fuchsia","gamboge","gold","goldenrod","green","grey","harlequin","heliotrope","indigo","ivory","jade","khaki","lavender","lemon","lilac","lime","linen","magenta","magnolia","malachite","maroon","mauve","mustard","myrtle","ochre","olive","olivine","orange","orchid","peach","pear","periwinkle","persimmon","pink","platinum","plum","puce","pumpkin","purple","razzmatazz","red","rose","ruby","russet","rust","saffron","salmon","sangria","sapphire","scarlet","seashell","sepia","silver","smalt","tan","tangerine","taupe","teal","thistle","tomato","turquoise","ultramarine","vermilion","violet","viridian","wheat","white","wisteria","yellow","zucchini"];;
+    var nouns = ["bear", "dog", "banana", "ape","baboon","badger","bat","bear","bird","bobcat","bulldog","bullfrog","cat","catfish","cheetah","chicken","chipmunk","cobra","cougar","cow","crab","deer","dingo","dodo","dog","dolphin","donkey","dragon","dragonfly","duck","eagle","earwig","eel","elephant","emu","falcon","fireant","firefox","fish","fly","fox","frog","gecko","goat","goose","grasshopper","horse","hound","husky","impala","insect","jellyfish","kangaroo","ladybug","liger","lion","lionfish","lizard","mayfly","mole","monkey","moose","moth","mouse","mule","newt","octopus","otter","owl","panda","panther","parrot","penguin","pig","puma","pug","quail","rabbit","rat","rattlesnake","robin","seahorse","sheep","shrimp","skunk","sloth","snail","snake","squid","starfish","stingray","swan","termite","tiger","treefrog","turkey","turtle","vampirebat","walrus","warthog","wasp","wolverine","wombat","yak","zebra"];
+
+    var adj_index = Math.floor(Math.random() * adjectives.length);
+    var noun_index = Math.floor(Math.random() * nouns.length);
+    //var rnd =  Math.random().toString(36).substr(2, 9).slice(-3);
+    let rnd =  Math.floor(Math.random() * (999 - 100 + 1)) + 100;
+    let name = adjectives[adj_index] + '-' + nouns[noun_index] + '-' + rnd;
+    return name;
+}
+
 // === event from html
 function call() {
     let userToCall = document.getElementById("callName").value.toLowerCase();
+    otherUser = userToCall;
+
+    beReady()
+        .then(bool => {
+            processCall(userToCall)
+        })
+}
+
+function call_by_name(userToCall){
     otherUser = userToCall;
 
     beReady()
@@ -143,17 +173,26 @@ function connectSocket() {
 
         let ul = document.createElement('ul');
     
+        const data_filtered = data.filter(x => x!=myName)
+
+        // Aucun autre membre connecté
+        if(data_filtered.length==0){
+            document.getElementById('user_list').innerHTML = 'Aucun autre membre connecté';
+            return;
+        }
+
         document.getElementById('user_list').innerHTML = '';
         document.getElementById('user_list').appendChild(ul);
         
-        data.forEach(function (item) {
+        data.forEach(function (name) {
 
-            if(item==myName) return;
+            if(name==myName) return;
 
-            let li = document.createElement('li');
+            //let li = document.createElement('li');
+            let li = createElementFromHTML(`<li><span onclick="call_by_name('${name}')">${name} (Appeler ☎️)</span></li>`)
             ul.appendChild(li);
         
-            li.innerHTML += item;
+            //li.innerHTML += name;
         });
 
         // const div_user_list = document.querySelector('#user_list')
