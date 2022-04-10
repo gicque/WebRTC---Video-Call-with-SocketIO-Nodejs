@@ -27,10 +27,11 @@
   background-color: antiquewhite;
   display: flex;
   flex-direction: column;
+  /* padding: 0 100px; */
 }
 
 .itemWrapper {
-  display: flex;
+  display: flex;max-width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -57,4 +58,16 @@
 
 #errorMessage {
   color: red;
+}
+
+video {
+  border: black solid 2px;
+}
+
+.localVideoWrapper{
+  /* position:absolute; 
+  bottom:0; 
+  right:0; 
+  padding-right: 20px; 
+  padding-top: 20px */
 }
