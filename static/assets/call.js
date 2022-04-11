@@ -127,10 +127,15 @@ let pcConfig = {
     "iceServers":
         [
             { "url": "stun:stun.jap.bloggernepal.com:5349" },
+            // {
+            //     "url": "turn:turn.jap.bloggernepal.com:5349",
+            //     "username": "guest",
+            //     "credential": "somepassword"
+            // },
             {
-                "url": "turn:turn.jap.bloggernepal.com:5349",
-                "username": "guest",
-                "credential": "somepassword"
+                "url": "turn:turn.anyfirewall.com:443?transport=tcp",
+                "username": "webrtc",
+                "credential": "webrtc"
             }
         ]
 };
