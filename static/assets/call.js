@@ -129,16 +129,16 @@ let pcConfig = {
             { "url": "stun:stun.l.google.com:19302" },
             { "url": "stun:stun1.l.google.com:19302" },
             //{ "url": "stun:stun.jap.bloggernepal.com:5349" },
-            // {
-            //     "url": "turn:turn.jap.bloggernepal.com:5349",
-            //     "username": "guest",
-            //     "credential": "somepassword"
-            // },
             {
-                "url": "turn:turn.anyfirewall.com:443?transport=tcp",
-                "username": "webrtc",
-                "credential": "webrtc"
-            }
+                "url": "turn:turn.jap.bloggernepal.com:5349",
+                "username": "guest",
+                "credential": "somepassword"
+            },
+            // {
+            //     "url": "turn:turn.anyfirewall.com:443?transport=tcp",
+            //     "username": "webrtc",
+            //     "credential": "webrtc"
+            // }
         ]
 };
 
