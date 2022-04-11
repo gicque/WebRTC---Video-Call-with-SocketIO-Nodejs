@@ -124,11 +124,17 @@ function hangup_call(){
 // ===
 
 let pcConfig = {
+    iceTransportPolicy : "relay" ,
     "iceServers":
         [
-            // { "url": "stun:stun.l.google.com:19302" },
-            // { "url": "stun:stun1.l.google.com:19302" },
-            { "url": "stun:stun.jap.bloggernepal.com:5349" },
+            { "url": "stun:stun.l.google.com:19302" },
+            { "url": "stun:stun1.l.google.com:19302" },
+            {
+                urls: 'turn:51.210.0.63:3478?transport=udp', 
+                username: 'reda', 
+                credential: '123'
+            }
+            // { "url": "stun:stun.jap.bloggernepal.com:5349" },
             // {
             //     "url": "turn:turn.jap.bloggernepal.com:5349",
             //     "username": "guest",
