@@ -124,7 +124,7 @@ function hangup_call(){
 // ===
 
 let pcConfig = {
-    iceTransportPolicy : "relay" ,
+    // iceTransportPolicy : "relay" ,
     "iceServers":
         [
             { "url": "stun:stun.l.google.com:19302" },
